@@ -1,0 +1,103 @@
+{% extends 'adminheader.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Complaints</title>
+    <style>
+        /* General Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            text-align: left;
+            padding: 12px;
+        }
+        /* Header Row */
+        thead {
+            background-color: #5bd6b7;
+            color: white;
+        }
+        /* Alternate Row Backgrounds */
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tbody tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
+        tbody tr:hover {
+            background-color: #e0f2e9;
+        }
+        /* Header */
+        .header {
+            background-color: #04c494;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        /* Reply Styling */
+        .no-reply {
+            color: red;
+        }
+        .reply-given {
+            color: darkgreen;
+        }
+        /* Optional: Adjust content container if needed */
+        .content {
+            margin: 0 auto;
+            max-width: 11200px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1 class="header">User Complaints</h1>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>SL. No</th>
+                    <th>Username</th>
+                    <th>Subject</th>
+                    <th>Complaint</th>
+                    <th>Reply</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for complaint in complaints %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ complaint.user_id.Name }}</td>
+                    <td>{{ complaint.subject }}</td>
+                    <td>{{ complaint.complaint }}</td>
+                    <td>
+                        {% if complaint.reply %}
+                            {{ complaint.reply }}
+                        {% else %}
+                            <span class="no-reply">No reply given</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if not complaint.reply %}
+                            <a href="{% url 'complaint_replay' pk=complaint.complaint_id %}" class="btn btn-primary">Reply</a>
+                        {% else %}
+                            <span class="reply-given">Reply Given</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center">No complaints available</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

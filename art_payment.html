@@ -1,0 +1,305 @@
+{% comment %} {% load static %}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <title>Payment Tab Widget Flat Responsive Widget Template :: w3layouts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Payment Tab Widget a Responsive Web Template, Bootstrap Web Templates, Flat Web Templates, Android Compatible Web Template, Smartphone Compatible Web Template, Free Webdesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola Web Design">
+    <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <link rel="stylesheet" href="{% static 'payment1/css/style.css' %}" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static 'payment1/css/easy-responsive-tabs.css' %}" type="text/css" media="all" />
+    <link href="//fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i" rel="stylesheet">
+
+</head>
+
+<body>
+    <h1 class="title-agile text-center">Payment Tab Widget</h1>
+    <div class="w3ls-main">
+        <div class="responsive_tabs w3ls_tab">
+            <div id="horizontalTab">
+                <ul class="resp-tabs-list">
+                    <li>Credit/Debit</li>
+                    
+                </ul>
+                <div class="resp-tabs-container">
+                    <div class="tab1">
+                        <div class="agile_pay">
+                            <form action="" method="post" class="creditly-card-form shopf-sear-headinfo_form">
+                                <section class="creditly-wrapper payf_wrapper">
+                                    <div class="credit-card-wrapper">
+                                        {% csrf_token %}
+                                        <div class="form-fields">
+                                            <div class="field">
+                                                <h3>Name on card:</h3>
+                                                <div class="input-container">
+                                                    {{ form.nameoncard }}
+                                                </div>
+                                            </div>
+                                            <div class="field">
+                                                <h3>Card No:</h3>
+                                                <div class="input-container">
+                                                    {{ form.Cardno }}
+                                                </div>
+                                            </div>
+                                            <div class="field">
+                                                <h3>CVV:</h3>
+                                                <div class="input-container">
+                                                    {{ form.cvv }}
+                                                </div>
+                                            </div>
+                                            <div class="field">
+                                                <h3>Expiry:</h3>
+                                                <div class="input-container">
+                                                    {{ form.expiredate }}
+                                                </div>
+                                            </div>
+                                            <div class="field">
+                                                <h3>Amount:</h3>
+                                                <div class="input-container">
+                                                    <input type="text" value="{{ amount }}" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="button-container">
+                                            <button type="submit">PAY</button>
+                                        </div>
+                                    </div>
+                                </section>
+                            </form>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="{% static 'payment1/js/jquery-2.2.3.min.js' %}"></script>
+    <script src="{% static 'payment1/js/easy-responsive-tabs.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#horizontalTab').easyResponsiveTabs({
+                type: 'default',
+                width: 'auto',
+                fit: true,
+                closed: 'accordion',
+                activate: function (event) {
+                    var $tab = $(this);
+                    var $info = $('#tabInfo');
+                    var $name = $('span', $info);
+                    $name.text($tab.text());
+                    $info.show();
+                }
+            });
+        });
+    </script>
+    <script src="{% static 'payment1/js/creditly.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'payment1/css/creditly.css' %}" type="text/css" media="all" />
+    <script>
+        $(function () {
+            var creditly = Creditly.initialize(
+                '.creditly-wrapper .expiration-month-and-year',
+                '.creditly-wrapper .credit-card-number',
+                '.creditly-wrapper .security-code',
+                '.creditly-wrapper .card-type');
+
+            $(".creditly-card-form .submit").click(function (e) {
+                e.preventDefault();
+                var output = creditly.validate();
+                if (output) {
+                    // Your validated credit card output
+                    console.log(output);
+                }
+            });
+        });
+    </script>
+    <div class="copy-wthree text-center">
+        <p>© 2018 Payment Tab Widget. All Rights Reserved | Design by
+            <a href="http://w3layouts.com/" target="_blank"> W3layouts </a>
+        </p>
+    </div>
+</body>
+</html> {% endcomment %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Payment Successful</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'payment1/css/style.css' %}" type="text/css" media="all">
+    <style>
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 300px;
+            text-align: center;
+        }
+
+        .success-icon svg {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 15px;
+            animation: scaleUp 0.5s ease-in-out;
+        }
+
+        @keyframes scaleUp {
+            0% {
+                transform: scale(0);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .modal-buttons {
+            margin-top: 20px;
+        }
+
+        .modal-button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        .modal-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="title-agile text-center">Payment Tab Widget</h1>
+    <div class="w3ls-main">
+        <div class="responsive_tabs w3ls_tab">
+            <div id="horizontalTab">
+                <ul class="resp-tabs-list">
+                    <li>Credit/Debit</li>
+                    
+                </ul>
+                <div class="resp-tabs-container">
+                    <div class="tab1">
+                        <div class="agile_pay">
+                            <form action="" method="post" class="creditly-card-form shopf-sear-headinfo_form">
+                                <section class="creditly-wrapper payf_wrapper">
+                                    <div class="credit-card-wrapper">
+                                        {% csrf_token %}
+                                        <div class="form-fields">
+                                            <div class="field">
+                                                <h3>Name on card:</h3>
+                                                <div class="input-container">
+                                                    {{ form.nameoncard }}
+                                                </div>
+                                            </div>
+                                            <div class="field">
+                                                <h3>Card No:</h3>
+                                                <div class="input-container">
+                                                    {{ form.Cardno }}
+                                                </div>
+                                            </div>
+                                            <div class="field">
+                                                <h3>CVV:</h3>
+                                                <div class="input-container">
+                                                    {{ form.cvv }}
+                                                </div>
+                                            </div>
+                                            <div class="field">
+                                                <h3>Expiry:</h3>
+                                                <div class="input-container">
+                                                    {{ form.expiredate }}
+                                                </div>
+                                            </div>
+                                            <div class="field">
+                                                <h3>Amount:</h3>
+                                                <div class="input-container">
+                                                    <input type="text" value="{{ amount }}" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="button-container">
+                                            <button type="submit">PAY</button>
+                                        </div>
+                                    </div>
+                                </section>
+                            </form>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="paymentSuccessModal" class="modal">
+        <div class="modal-content">
+            <div class="success-icon">
+                <!-- Green Tick Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="green">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+            </div>
+            <h4>Payment Successful</h4>
+            <div class="modal-buttons">
+                <button id="goHomeButton" class="modal-button">Go Home</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'payment1/js/jquery-2.2.3.min.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const paymentSuccessModal = document.getElementById('paymentSuccessModal');
+            const goHomeButton = document.getElementById('goHomeButton');
+
+            // Show the modal after a successful payment
+            if ({{ payment_successful|yesno:"true,false" }}) {
+                paymentSuccessModal.style.display = 'block';
+            }
+
+            // Redirect to home on clicking 'Go Home'
+            goHomeButton.addEventListener('click', function() {
+                window.location.href = '/userload';
+            });
+
+            // Hide the modal if clicked outside of it
+            window.onclick = function(event) {
+                if (event.target == paymentSuccessModal) {
+                    paymentSuccessModal.style.display = 'none';
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
